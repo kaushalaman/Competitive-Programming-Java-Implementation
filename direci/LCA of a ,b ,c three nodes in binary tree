@@ -1,0 +1,4 @@
+Find LCA of 3 pairs - (a, b), (b, c) and (c, a)
+LCA of at-least 2 pairs will be same.
+If all 3 LCAs are same, remove that LCA node.
+If only 2 LCAs are same, then we have two distinct LCA node here. One LCA node will be parent and other LCA node will be child. Remove the Child LCA Node (We may calculate height of the two LCA nodes here. The LCA node with lesser height will be the Child of the other and this lesser height node should be deleted).

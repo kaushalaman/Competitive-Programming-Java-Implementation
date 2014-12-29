@@ -1,0 +1,46 @@
+class Comparison implements Comparator<Person>{
+    @Override
+    public int compare(final Person p1, final Person p2){
+        if (p1.numTallBeforePerson == p2.numTallBeforePerson){
+            if (p1.height < p2.height) {
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
+        else if (p1.numTallBeforePerson < p2.numTallBeforePerson) {
+            if (p1.height < p2.height)
+                return -1;
+        }
+        else if (p1.numTallBeforePerson > p2.numTallBeforePerson) {
+            if (p1.height > p2.height)
+                return 1;
+        }
+        return -1;
+    }
+}
+///////////////////////
+Though I like the idea of sorting using the comparator as mentioned above by amitb2108 but below is the approach that came to my mind first.
+lets say height[] = {3,1,2,4}
+pos[] = {0,2,1,0}; //no of persons greater height than him
+1. create an array of person struct of size n and fill the data from the above two arrays
+struct person
+{
+int height;
+int num;
+};
+2. Sort the person array with height as the key in decreasing order. o(nlgn)
+index 0,1,2,3
+person[] = {4,3,2,1}
+{0,0,1,2} //person.num
+3. Remember the index of array represents the no of persons greater in front of the current index. e.g. person with height 3 has array index 1, so 1 person is in front of him with greater height. But we need to have 0 no of person greater than 3, so swap it with index 0.
+person[] = {3,4,2,1} //after swapping 3
+//2 has only one person in front but index of 2 is 2 currently there are 2 persons
+//swap it with index 1
+person[] = {3,2,4,1}
+//1 has only 2 persons in front but index of 1 is 3, so currently there are 3 persons
+//swap it with index 2
+person[] = {3,2,1,4}
+the idea is, previous index, has a person with greater height than current index. The previous index person's position is already set. Now if we move this previous index person towards right it doesn't impact the position of this person. e.g. person with height 4, if we move this person towards the right, still the no of persons with greater height will be 0.
+Total complexity = o(nlogn)
